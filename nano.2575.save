@@ -1,0 +1,25 @@
+  GNU nano 5.9                                                                                                     package.json                                                                                                               
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "api para reservas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "16.13.1"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "pg": "^8.7.1"
+  }
+}
+
+
+
+
+
