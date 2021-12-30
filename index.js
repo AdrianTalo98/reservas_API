@@ -172,6 +172,30 @@ app.get('/reservas',(req,res)=>{
 
 })
 
+app.post('/misReservas',(req,res)=>{
+
+    const data = {
+        id : req.body.id
+    }
+
+    async function MisReservas(){
+        try{
+            const ress = await pool.query(`select * from reservar where reservar.rut_cliente = '${data.id}' order by reservar.fecha, reservar.hora;`);  
+            //res.send(ress.rows)
+            //console.log(ress.rows)
+            res.send(JSON.stringify(ress.rows))
+        }catch{
+            res.send("error")
+        }
+    }
+
+    MisReservas()
+
+})
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
