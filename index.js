@@ -195,6 +195,39 @@ app.post('/misReservas',(req,res)=>{
 
 
 
+app.post('/cancelar',(req,res)=>{
+
+    const data = {
+        code : req.body.codigo_reserva,
+        fecha : '',
+        hora : '',
+        cancha : ''
+    }
+
+    async function MisReservas(){
+        try{
+            const ress = await pool.query(`select * from reservar where reservar.codigo_reserva = '${data.code}'`);
+            console.log(ress.rows)
+            data.fecha = ress.rows[0].fecha;
+            console.log(data.fecha)
+            data.hora = ress.rows[0].hora;
+            data.cancha = ress.rows[0].id_cancha;
+
+            const ress2 = await pool.query(`delete from reservar where reservar.codigo_reserva = '${data.code}'`);  
+            const ress3 = await pool.query(`update disponible set isavaible = 'true' where id_cancha = '${data.cancha}' and fecha = '${new Date(data.fecha).toUTCString()}' and hora = ${data.hora} `);
+            res.send("Listeke :O")
+            //res.send(ress.rows)
+            //console.log(ress.rows)
+            //res.send(JSON.stringify(ress.rows))
+        }catch(error){
+            res.send("error")
+        }
+    }
+
+    MisReservas()
+
+})
+
 
 
 app.listen(port, () => {
